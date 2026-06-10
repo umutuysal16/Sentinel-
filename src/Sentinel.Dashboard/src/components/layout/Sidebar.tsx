@@ -16,18 +16,18 @@ export default function Sidebar() {
   const { soundEnabled, toggleSound } = useAlertSound();
 
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-700 flex flex-col min-h-screen">
-      <div className="p-6 border-b border-slate-700">
+    <aside className="w-full md:w-64 bg-slate-900 md:border-r border-b md:border-b-0 border-slate-700 flex flex-col md:min-h-screen">
+      <div className="p-4 md:p-6 border-b border-slate-700">
         <div className="flex items-center gap-3">
-          <Shield className="w-8 h-8 text-emerald-400" />
+          <Shield className="w-6 h-6 md:w-8 md:h-8 text-emerald-400" />
           <div>
-            <h1 className="text-lg font-bold text-white">Sentinel</h1>
-            <p className="text-xs text-slate-400">AI Log Analysis</p>
+            <h1 className="text-base md:text-lg font-bold text-white">Sentinel</h1>
+            <p className="text-[10px] md:text-xs text-slate-400 hidden md:block">AI Log Analysis</p>
           </div>
         </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      <nav className="flex-none md:flex-1 p-2 md:p-4 flex flex-row md:flex-col overflow-x-auto gap-2 md:gap-1 scrollbar-hide">
         {links.map(({ to, icon: Icon, label }) => (
           <NavLink
             key={to}
@@ -35,7 +35,7 @@ export default function Sidebar() {
             end={to === '/'}
             className={({ isActive }) =>
               clsx(
-                'flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                'flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 rounded-lg text-sm font-medium transition-colors whitespace-nowrap',
                 isActive
                   ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                   : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
@@ -48,7 +48,7 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-slate-700 space-y-3">
+      <div className="hidden md:block p-4 border-t border-slate-700 space-y-3">
         <div className="flex items-center justify-center gap-2">
           <button
             onClick={toggleTheme}
