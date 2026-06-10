@@ -3,9 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getAgents, getLogs } from '../api/client';
 import { ArrowLeft, Server, Wifi, WifiOff, AlertTriangle } from 'lucide-react';
 import clsx from 'clsx';
-import { useState } from 'react';
-import type { LogEntry } from '../types';
-import LogDetailModal from '../components/logs/LogDetailModal';
 
 const levelColors: Record<string, string> = {
   Debug: 'bg-slate-500/20 text-slate-400',
@@ -23,7 +20,6 @@ const statusConfig: Record<string, { color: string; icon: typeof Wifi }> = {
 
 export default function AgentDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [selectedLog, setSelectedLog] = useState<LogEntry | null>(null);
 
   const { data: agents } = useQuery({
     queryKey: ['agents'],
@@ -123,7 +119,7 @@ export default function AgentDetailPage() {
           </thead>
           <tbody>
             {logsData?.items.map(log => (
-              <tr key={log.id} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors cursor-pointer" onClick={() => setSelectedLog(log)}>
+              <tr key={log.id} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
                 <td className="px-4 py-2">
                   <span className={clsx('px-2 py-0.5 rounded text-xs font-medium', levelColors[log.level])}>
                     {log.level}
@@ -140,9 +136,6 @@ export default function AgentDetailPage() {
         </table>
       </div>
 
-      {selectedLog && (
-        <LogDetailModal log={selectedLog} onClose={() => setSelectedLog(null)} />
-      )}
     </div>
   );
 }

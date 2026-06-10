@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getLogs, getAgents } from '../api/client';
 import clsx from 'clsx';
-import type { LogEntry } from '../types';
-import LogDetailModal from '../components/logs/LogDetailModal';
 
 const levelColors: Record<string, string> = {
   Debug: 'bg-slate-500/20 text-slate-400',
@@ -17,7 +15,6 @@ export default function LogsPage() {
   const [agentId, setAgentId] = useState<string>('');
   const [level, setLevel] = useState<number | undefined>(undefined);
   const [page, setPage] = useState(1);
-  const [selectedLog, setSelectedLog] = useState<LogEntry | null>(null);
 
   const { data: agents } = useQuery({
     queryKey: ['agents'],
@@ -127,7 +124,7 @@ export default function LogsPage() {
             {isLoading ? (
               <tr><td colSpan={5} className="text-center py-8 text-slate-500">Loading...</td></tr>
             ) : data?.items.map(log => (
-              <tr key={log.id} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors cursor-pointer" onClick={() => setSelectedLog(log)}>
+              <tr key={log.id} className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
                 <td className="px-4 py-2">
                   <span className={clsx('px-2 py-0.5 rounded text-xs font-medium', levelColors[log.level])}>
                     {log.level}
@@ -168,9 +165,6 @@ export default function LogsPage() {
             </button>
           </div>
         </div>
-      )}
-      {selectedLog && (
-        <LogDetailModal log={selectedLog} onClose={() => setSelectedLog(null)} />
       )}
     </div>
   );
