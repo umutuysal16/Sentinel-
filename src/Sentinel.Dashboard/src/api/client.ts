@@ -56,11 +56,11 @@ const mockSummary: DashboardSummary = {
 };
 
 export const getAgents = () => Promise.resolve(mockAgents);
-export const getAlerts = () => Promise.resolve(mockAlerts);
-export const getLogs = () => Promise.resolve(mockLogs);
+export const getAlerts = (params?: { severity?: string; acknowledged?: boolean; page?: number; pageSize?: number }) => Promise.resolve({ ...mockAlerts, page: params?.page || 1 });
+export const getLogs = (params?: { agentId?: string; level?: number; page?: number; pageSize?: number }) => Promise.resolve({ ...mockLogs, page: params?.page || 1 });
 export const getDashboardSummary = () => Promise.resolve(mockSummary);
-export const acknowledgeAlert = (id: string) => Promise.resolve();
-export const getLogById = (id: string) => Promise.resolve(mockLogs.items[0]);
-export const getAlertById = (id: string) => Promise.resolve({ ...mockAlerts.items[0], ruleName: 'Security Policy', ruleDescription: 'Blocks repeated auth failures' } as AlertDetail);
+export const acknowledgeAlert = (id: string) => Promise.resolve(id);
+export const getLogById = (id: string) => Promise.resolve({ ...mockLogs.items[0], id });
+export const getAlertById = (id: string) => Promise.resolve({ ...mockAlerts.items[0], id, ruleName: 'Security Policy', ruleDescription: 'Blocks repeated auth failures' } as AlertDetail);
 export const getAlertStats = () => Promise.resolve({ total: 15, unacknowledged: 2, bySeverity: { 'Critical': 1, 'High': 1, 'Medium': 8, 'Low': 5 } });
-export const clearAlerts = () => Promise.resolve();
+export const clearAlerts = (onlyAcknowledged = true) => Promise.resolve(onlyAcknowledged);
