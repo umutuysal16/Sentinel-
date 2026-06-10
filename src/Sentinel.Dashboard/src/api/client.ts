@@ -2,18 +2,18 @@ import type { Agent, Alert, AlertDetail, DashboardSummary, LogEntry, PaginatedLi
 
 // --- MOCK DATA FOR ACADEMIC SCREENSHOTS ---
 const mockAgents: Agent[] = [
-  { id: '1', name: 'Web-Server-01', ipAddress: '192.168.1.10', deviceType: 'Linux VM', osVersion: 'Ubuntu 22.04', status: 'Online', lastHeartbeat: new Date().toISOString(), logCount: 4521 },
-  { id: '2', name: 'DB-Cluster-M', ipAddress: '10.0.0.5', deviceType: 'Database', osVersion: 'PostgreSQL', status: 'Online', lastHeartbeat: new Date().toISOString(), logCount: 12053 },
-  { id: '3', name: 'Auth-Service', ipAddress: '172.16.0.4', deviceType: 'Container', osVersion: 'Docker', status: 'Degraded', lastHeartbeat: new Date().toISOString(), logCount: 890 },
+  { id: '1', name: 'Web-Server-01', ipAddress: '192.168.1.10', deviceType: 'Linux VM', status: 'Online', lastHeartbeat: new Date().toISOString(), logCount: 4521 },
+  { id: '2', name: 'DB-Cluster-M', ipAddress: '10.0.0.5', deviceType: 'Database', status: 'Online', lastHeartbeat: new Date().toISOString(), logCount: 12053 },
+  { id: '3', name: 'Auth-Service', ipAddress: '172.16.0.4', deviceType: 'Container', status: 'Degraded', lastHeartbeat: new Date().toISOString(), logCount: 890 },
 ];
 
 const mockLogs: PaginatedList<LogEntry> = {
   items: [
-    { id: 'l1', agentId: '1', agentName: 'Web-Server-01', level: 'Error', message: 'Failed to bind to port 8080. Address already in use.', source: 'nginx', timestamp: new Date(Date.now() - 5000).toISOString(), properties: null },
-    { id: 'l2', agentId: '2', agentName: 'DB-Cluster-M', level: 'Information', message: 'Successfully committed transaction 89234', source: 'postgres', timestamp: new Date(Date.now() - 15000).toISOString(), properties: null },
-    { id: 'l3', agentId: '3', agentName: 'Auth-Service', level: 'Critical', message: 'Multiple failed login attempts detected from IP 185.15.22.1', source: 'auth_middleware', timestamp: new Date(Date.now() - 25000).toISOString(), properties: null },
-    { id: 'l4', agentId: '1', agentName: 'Web-Server-01', level: 'Warning', message: 'High memory usage detected (85%)', source: 'systemd', timestamp: new Date(Date.now() - 45000).toISOString(), properties: null },
-    { id: 'l5', agentId: '2', agentName: 'DB-Cluster-M', level: 'Information', message: 'Vacuum analyze completed in 450ms', source: 'postgres', timestamp: new Date(Date.now() - 65000).toISOString(), properties: null },
+    { id: 'l1', agentId: '1', agentName: 'Web-Server-01', level: 'Error', message: 'Failed to bind to port 8080. Address already in use.', source: 'nginx', timestamp: new Date(Date.now() - 5000).toISOString(), stackTrace: null, properties: {} },
+    { id: 'l2', agentId: '2', agentName: 'DB-Cluster-M', level: 'Information', message: 'Successfully committed transaction 89234', source: 'postgres', timestamp: new Date(Date.now() - 15000).toISOString(), stackTrace: null, properties: {} },
+    { id: 'l3', agentId: '3', agentName: 'Auth-Service', level: 'Critical', message: 'Multiple failed login attempts detected from IP 185.15.22.1', source: 'auth_middleware', timestamp: new Date(Date.now() - 25000).toISOString(), stackTrace: null, properties: {} },
+    { id: 'l4', agentId: '1', agentName: 'Web-Server-01', level: 'Warning', message: 'High memory usage detected (85%)', source: 'systemd', timestamp: new Date(Date.now() - 45000).toISOString(), stackTrace: null, properties: {} },
+    { id: 'l5', agentId: '2', agentName: 'DB-Cluster-M', level: 'Information', message: 'Vacuum analyze completed in 450ms', source: 'postgres', timestamp: new Date(Date.now() - 65000).toISOString(), stackTrace: null, properties: {} },
   ],
   page: 1,
   pageSize: 50,
@@ -75,9 +75,17 @@ export const getLogById = (id: string) => {
 };
 export const getAlertById = (id: string) => {
   console.log(id);
+  const baseAlert = mockAlerts.items[0];
   const detail: AlertDetail = {
-    ...mockAlerts.items[0],
     id,
+    riskScore: baseAlert.riskScore,
+    severity: baseAlert.severity,
+    category: baseAlert.category,
+    aiExplanation: baseAlert.aiExplanation,
+    isAcknowledged: baseAlert.isAcknowledged,
+    acknowledgedAt: baseAlert.acknowledgedAt,
+    acknowledgedBy: baseAlert.acknowledgedBy,
+    createdAt: baseAlert.createdAt,
     relatedLog: mockLogs.items[0],
     agent: mockAgents[0],
     agentTimeline: mockLogs.items
