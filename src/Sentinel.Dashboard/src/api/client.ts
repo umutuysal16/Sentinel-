@@ -1,9 +1,4 @@
-import axios from 'axios';
 import type { Agent, Alert, AlertDetail, DashboardSummary, LogEntry, PaginatedList } from '../types';
-
-const api = axios.create({
-  baseURL: '/api',
-});
 
 // --- MOCK DATA FOR ACADEMIC SCREENSHOTS ---
 const mockAgents: Agent[] = [
@@ -30,8 +25,8 @@ const mockLogs: PaginatedList<LogEntry> = {
 
 const mockAlerts: PaginatedList<Alert> = {
   items: [
-    { id: 'a1', agentId: '3', agentName: 'Auth-Service', originalLogId: 'l3', ruleId: 'r1', severity: 'High', title: 'Potential Brute Force Attack', message: 'Detected 50+ failed logins in 1 minute. Initiating IP block.', isAcknowledged: false, createdAt: new Date(Date.now() - 25000).toISOString() },
-    { id: 'a2', agentId: '1', agentName: 'Web-Server-01', originalLogId: 'l1', ruleId: 'r2', severity: 'Critical', title: 'Service Port Binding Failure', message: 'Critical web service failed to start due to port conflict.', isAcknowledged: false, createdAt: new Date(Date.now() - 5000).toISOString() },
+    { id: 'a1', logEntryId: 'l3', riskScore: 9.5, severity: 'Critical', category: 'Brute Force', aiExplanation: 'Multiple failed login attempts detected from a single IP address in a short time frame, indicating a potential brute force attack.', isAcknowledged: false, acknowledgedAt: null, acknowledgedBy: null, createdAt: new Date(Date.now() - 25000).toISOString() },
+    { id: 'a2', logEntryId: 'l1', riskScore: 8.0, severity: 'High', category: 'Service Failure', aiExplanation: 'A critical system service failed to bind to its assigned port, causing an outage.', isAcknowledged: false, acknowledgedAt: null, acknowledgedBy: null, createdAt: new Date(Date.now() - 5000).toISOString() },
   ],
   page: 1,
   pageSize: 50,
@@ -43,13 +38,21 @@ const mockAlerts: PaginatedList<Alert> = {
 
 const mockSummary: DashboardSummary = {
   totalAgents: 3,
-  activeAgents: 3,
-  totalLogsToday: 17464,
-  criticalAlertsActive: 2,
-  recentLogs: mockLogs.items,
-  recentAlerts: mockAlerts.items,
-  logsByLevel: { 'Information': 12000, 'Warning': 3400, 'Error': 1900, 'Critical': 164 },
-  logsByHour: { '08:00': 1500, '09:00': 2200, '10:00': 3500, '11:00': 2800, '12:00': 4100, '13:00': 3364 }
+  onlineAgents: 3,
+  totalLogs: 17464,
+  criticalLogs24h: 164,
+  totalAlerts: 15,
+  unacknowledgedAlerts: 2,
+  averageRiskScore: 8.7,
+  alertsByCategory: { 'Brute Force': 8, 'Service Failure': 4, 'SQL Injection': 2, 'Malware': 1 },
+  logVolumeByHour: [
+    { hour: '08:00', count: 1500 },
+    { hour: '09:00', count: 2200 },
+    { hour: '10:00', count: 3500 },
+    { hour: '11:00', count: 2800 },
+    { hour: '12:00', count: 4100 },
+    { hour: '13:00', count: 3364 }
+  ]
 };
 
 export const getAgents = () => Promise.resolve(mockAgents);
