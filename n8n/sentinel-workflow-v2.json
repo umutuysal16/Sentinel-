@@ -1,0 +1,81 @@
+{
+  "name": "Sentinel AI Log Analysis V2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analyze-log",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "node-webhook",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=YOUR_GEMINI_API_KEY_HERE",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"contents\": [{\n    \"parts\": [{\n      \"text\": \"You are a senior cybersecurity and infrastructure reliability analyst working in a Security Operations Center (SOC). You are analyzing real-time log data from a distributed system monitoring platform called Sentinel.\\n\\nAnalyze the following log entry thoroughly and provide a comprehensive security assessment.\\n\\n=== LOG ENTRY ===\\nSource Service: {{ $json.body.source }}\\nSeverity Level: {{ $json.body.level }}\\nLog Message: {{ JSON.stringify($json.body.message || '').slice(1, -1) }}\\nLog Entry ID: {{ $json.body.logEntryId }}\\n=================\\n\\nPerform the following analysis:\\n\\n1. RISK SCORE (1-10): Assess the overall risk level considering:\\n   - Immediate threat severity\\n   - Potential for lateral movement or escalation\\n   - Impact on system availability and data integrity\\n   - Historical patterns this type of event typically indicates\\n\\n2. THREAT CATEGORY: Classify into exactly ONE category:\\n   - BruteForce: Repeated authentication failures, credential stuffing, password spraying\\n   - UnauthorizedAccess: Privilege escalation, unauthorized resource access, suspicious admin activity\\n   - ResourceBottleneck: CPU/Memory/Disk exhaustion, connection pool depletion, performance degradation\\n   - AnomalousPattern: Unusual traffic patterns, DDoS indicators, data exfiltration signs\\n   - ServiceDown: Service failures, unresponsive components, cascading failures\\n\\n3. DETAILED EXPLANATION: Provide a thorough analysis (3-5 sentences) covering:\\n   - What exactly is happening and why it is concerning\\n   - The potential root cause\\n   - Immediate impact on the system\\n   - Recommended actions for the security team\\n\\nRespond ONLY with valid JSON, no markdown code blocks:\\n{\\\"riskScore\\\": <number 1-10>, \\\"category\\\": \\\"<category>\\\", \\\"explanation\\\": \\\"<detailed multi-sentence explanation>\\\"}\"\n    }]\n  }]\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "node-gemini",
+      "name": "Call Gemini API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  try {\n    const candidates = item.json.candidates;\n    if (!candidates || candidates.length === 0) {\n      results.push({ json: { riskScore: 5, category: 'AnomalousPattern', explanation: 'AI returned empty response.' } });\n      continue;\n    }\n\n    let text = candidates[0].content.parts[0].text;\n    text = text.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n    \n    const parsed = JSON.parse(text);\n    const riskScore = Math.min(10, Math.max(1, parseInt(parsed.riskScore) || 5));\n    \n    const validCategories = ['BruteForce', 'UnauthorizedAccess', 'ResourceBottleneck', 'AnomalousPattern', 'ServiceDown'];\n    const category = validCategories.includes(parsed.category) ? parsed.category : 'AnomalousPattern';\n    const explanation = parsed.explanation || 'No explanation provided.';\n    \n    results.push({ json: { riskScore, category, explanation } });\n  } catch (error) {\n    results.push({ json: { riskScore: 5, category: 'AnomalousPattern', explanation: 'Parse error: ' + error.message } });\n  }\n}\n\nreturn results;"
+      },
+      "id": "node-parse",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Call Gemini API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Gemini API": {
+      "main": [
+        [
+          {
+            "node": "Parse AI Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

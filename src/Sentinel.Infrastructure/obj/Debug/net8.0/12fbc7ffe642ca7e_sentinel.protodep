@@ -1,0 +1,2 @@
+obj\Debug\net8.0\Protos/Sentinel.cs \
+obj\Debug\net8.0\Protos/SentinelGrpc.cs: Protos/sentinel.proto

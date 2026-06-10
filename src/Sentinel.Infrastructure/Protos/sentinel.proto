@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option csharp_namespace = "Sentinel.Infrastructure.Protos";
+
+package sentinel;
+
+service LogIngestion {
+  rpc SendLog (SendLogRequest) returns (SendLogResponse);
+  rpc SendLogStream (stream SendLogRequest) returns (SendLogResponse);
+  rpc Heartbeat (HeartbeatRequest) returns (HeartbeatResponse);
+  rpc RegisterAgent (RegisterAgentRequest) returns (RegisterAgentResponse);
+}
+
+message SendLogRequest {
+  string agent_id = 1;
+  int32 level = 2;
+  string source = 3;
+  string message = 4;
+  string stack_trace = 5;
+  string properties_json = 6;
+  int64 timestamp_unix_ms = 7;
+}
+
+message SendLogResponse {
+  bool success = 1;
+  string log_entry_id = 2;
+}
+
+message HeartbeatRequest {
+  string agent_id = 1;
+  string hostname = 2;
+  string device_type = 3;
+}
+
+message HeartbeatResponse {
+  bool acknowledged = 1;
+}
+
+message RegisterAgentRequest {
+  string name = 1;
+  string device_type = 2;
+  string ip_address = 3;
+}
+
+message RegisterAgentResponse {
+  string agent_id = 1;
+}

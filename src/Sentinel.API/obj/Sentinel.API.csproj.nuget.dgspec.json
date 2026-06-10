@@ -1,0 +1,348 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.API/Sentinel.API.csproj": {}
+  },
+  "projects": {
+    "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.API/Sentinel.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.API/Sentinel.API.csproj",
+        "projectName": "Sentinel.API",
+        "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.API/Sentinel.API.csproj",
+        "packagesPath": "/Users/savasbalta/.nuget/packages/",
+        "outputPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/savasbalta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://packages.bytegurus.io/repository/pmicroframe-nuget-group/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj": {
+                "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj"
+              },
+              "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj": {
+                "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.67.0, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj",
+        "projectName": "Sentinel.Application",
+        "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj",
+        "packagesPath": "/Users/savasbalta/.nuget/packages/",
+        "outputPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/savasbalta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://packages.bytegurus.io/repository/pmicroframe-nuget-group/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj": {
+                "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.4.1, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj",
+        "projectName": "Sentinel.Domain",
+        "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj",
+        "packagesPath": "/Users/savasbalta/.nuget/packages/",
+        "outputPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/savasbalta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://packages.bytegurus.io/repository/pmicroframe-nuget-group/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj",
+        "projectName": "Sentinel.Infrastructure",
+        "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj",
+        "packagesPath": "/Users/savasbalta/.nuget/packages/",
+        "outputPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/savasbalta/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://packages.bytegurus.io/repository/pmicroframe-nuget-group/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj": {
+                "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Application/Sentinel.Application.csproj"
+              },
+              "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj": {
+                "projectPath": "/Users/savasbalta/Desktop/Sentinel/src/Sentinel.Domain/Sentinel.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.67.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.67.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Core": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

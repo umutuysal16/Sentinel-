@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sentinel.API/Sentinel.API.csproj" />
+    <Project Path="src/Sentinel.Application/Sentinel.Application.csproj" />
+    <Project Path="src/Sentinel.Domain/Sentinel.Domain.csproj" />
+    <Project Path="src/Sentinel.Infrastructure/Sentinel.Infrastructure.csproj" />
+    <Project Path="src/Sentinel.Worker/Sentinel.Worker.csproj" />
+  </Folder>
+</Solution>

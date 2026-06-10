@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+body.light {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+body.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+body.light ::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+body.light ::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+/* Light theme overrides */
+body.light .bg-slate-950 { background-color: #f1f5f9 !important; }
+body.light .bg-slate-900 { background-color: #ffffff !important; }
+body.light .bg-slate-800 { background-color: #f8fafc !important; }
+body.light .bg-slate-800\/50 { background-color: rgba(248,250,252,0.5) !important; }
+body.light .border-slate-700 { border-color: #e2e8f0 !important; }
+body.light .border-slate-800 { border-color: #f1f5f9 !important; }
+body.light .text-white { color: #0f172a !important; }
+body.light .text-slate-200 { color: #334155 !important; }
+body.light .text-slate-300 { color: #475569 !important; }
+body.light .text-slate-400 { color: #64748b !important; }
+body.light .text-slate-500 { color: #94a3b8 !important; }

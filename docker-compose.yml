@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: sentinel-postgres
+    environment:
+      POSTGRES_DB: sentineldb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - sentinel-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  n8n:
+    image: n8nio/n8n
+    container_name: sentinel-n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - sentinel-n8n-data:/home/node/.n8n
+    environment:
+      - GENERIC_TIMEZONE=Europe/Istanbul
+      - N8N_USER_MANAGEMENT_DISABLED=true
+
+  sentinel-api:
+    build:
+      context: ./src
+      dockerfile: Sentinel.API/Dockerfile
+    container_name: sentinel-api
+    ports:
+      - "5052:5052"
+      - "5053:5053"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5052
+      - ConnectionStrings__SentinelDb=Host=postgres;Port=5432;Database=sentineldb;Username=postgres;Password=postgres
+      - N8nSettings__WebhookUrl=http://n8n:5678/webhook/analyze-log
+      - N8nSettings__TimeoutSeconds=30
+      - Kestrel__Endpoints__Http__Url=http://+:5052
+      - Kestrel__Endpoints__Http__Protocols=Http1AndHttp2
+      - Kestrel__Endpoints__Grpc__Url=http://+:5053
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
+  sentinel-dashboard:
+    build:
+      context: ./src/Sentinel.Dashboard
+      dockerfile: Dockerfile
+    container_name: sentinel-dashboard
+    ports:
+      - "80:80"
+    depends_on:
+      - sentinel-api
+
+volumes:
+  sentinel-pgdata:
+  sentinel-n8n-data:
